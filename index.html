@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="reset">
+<html data-ng-app="reset">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
@@ -9,9 +9,10 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.min.js"></script>
     <!--Reference https://goo.gl/9ZXF8T-->
     <script src="//cdnjs.cloudflare.com/ajax/libs/angular-translate/2.15.2/angular-translate.min.js"></script>
-    <script src="app.js"></script>
+    <script src="app.min.js"></script>
+    <base href="/">
 </head>
-<body ng-controller="ResetController">
+<body data-ng-controller="ResetController">
 <div class="ui text container">
     <br><br>
     <div class="ui grid">
@@ -19,25 +20,39 @@
         <h2 class="ui centered aligned header column row">{{ 'RESET_PASSWORD' | translate}}</h2>
         <div class="ui row centered">
             <!--Reference: https://goo.gl/JXe2TR-->
-            <form class="ui large form">
+            <form class="ui large form" name="resetform">
                 <!--new password-->
                 <div class="field">
                     <div class="ui left icon input">
                         <i class="lock icon"></i>
                         <input type="password" name="password" placeholder="{{ 'NEW_PASSWORD' | translate }}"
-                               autofocus="" required="">
+                               autofocus="" required="" data-ng-model="reset_form.password" data-ng-disabled="loader">
                     </div>
                 </div>
                 <!--confirm new password-->
                 <div class="field">
                     <div class="ui left icon input">
                         <i class="lock icon"></i>
-                        <input type="password" name="confirm_password"
-                               placeholder="{{ 'CONFIRM_NEW_PASSWORD' | translate }}" required="">
+                        <input type="password" name="password_confirmation"
+                               placeholder="{{ 'CONFIRM_NEW_PASSWORD' | translate }}" required=""
+                               data-ng-model="reset_form.password_confirmation" data-ng-disabled="loader">
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="ui negative message" data-ng-if="error_show">
+                        <div class="header">
+                            {{ 'ERROR_MESSAGE' | translate }}
+                        </div>
+                        <ul>
+                            <li data-ng-repeat="error in errors track by $index">{{error}}</li>
+                        </ul>
                     </div>
                 </div>
                 <!--change password button-->
-                <div class="ui fluid large primary submit button">{{ 'CHANGE_PASSWORD_BUTTON' | translate }}</div>
+                <div class="ui fluid large primary submit button" data-ng-click="submit_form()"
+                     data-ng-class="{loading: loader}">{{
+                    'CHANGE_PASSWORD_BUTTON' | translate }}
+                </div>
 
                 <div class="ui error message"></div>
 

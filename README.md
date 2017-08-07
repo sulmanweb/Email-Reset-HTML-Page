@@ -29,6 +29,7 @@ $translateProvider.translations('en_US', {
         });
 ```
 - You can also create new language translation by just adding another object like given above with language shortkey. Also change the preffered language in `app.js` as you like.
+- Also change `var url = 'http://localhost:3000/api/auth/password';` according to your back end api.
 - Now compress back the `app.js` by any compressor to make `app.min.js`. I compress using [jscompress](https://jscompress.com)
 - Now double click o `index.html` and you will see the confirmation message with browser preferred language. 
 
